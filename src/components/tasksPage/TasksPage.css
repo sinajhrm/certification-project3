@@ -1,11 +1,12 @@
-.tasksPage-container * {
-vertical-align: middle;
-}
 
+
+.tasksPage-container {
+    display: flex;
+}
 .tasksPage-container ul {
     list-style-type: none;
 }
 
 .tasksPage-container li {
- padding: .75rem;
+    padding: .5rem;
 }

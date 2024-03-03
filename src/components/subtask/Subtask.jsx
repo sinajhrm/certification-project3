@@ -13,12 +13,13 @@ export default function Subtask ({ subtaskTitle = '', editMode = false, onSubtas
                 ? <input type='text' placeholder='Subtask Title' value={title} onChange={() => {}}/>
                 : <label className='task-title'>{title}</label>}
             <select disabled={!isEditingSubtask}>
-                <option value="">Select Priority ...</option>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
             </select>
+            <input type='date' />
             {isEditingSubtask && <button onClick={() => { onSubtaskSubmit(title) }}>Submit</button>}
+            {isEditingSubtask && <button onClick={() => { onSubtaskSubmit(title) }}>Delete</button>}
         </div>
     )
 }
