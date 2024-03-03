@@ -13,10 +13,10 @@ export default function TasksPage () {
     ]
 
     const tasks = [
-        { id: 1, subtasks, title: 'Task 1 title', editing: false },
-        { id: 1, subtasks: [], title: 'Task 2 title', editing: true },
-        { id: 1, subtasks: [], title: 'Task 3 title', editing: true },
-        { id: 1, subtasks: [], title: 'Task 4 title', editing: true }
+        { id: 1, subtasks, title: 'Task 1 title', editing: true },
+        { id: 2, subtasks: [], title: 'Task 2 title', editing: true },
+        { id: 3, subtasks: [], title: 'Task 3 title', editing: true },
+        { id: 4, subtasks: [], title: 'Task 4 title', editing: true }
     ]
 
     return (
