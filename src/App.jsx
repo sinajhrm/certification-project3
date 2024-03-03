@@ -16,11 +16,8 @@ import Navbar from './components/navbar/navbar'
 const App = () => {
     return (
         <Router>
-            <div>
-                <Navbar />
-                {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL.
-            Furthermore, notice how the content above always renders? On each page? */}
+            <Navbar />
+            <div className='app-content'>
                 <Routes>
                     <Route path="/home" element={<Home />} />
                     <Route path="/" element={<Home />} />

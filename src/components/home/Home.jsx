@@ -1,15 +1,28 @@
 import React from 'react'
+import './home.css'
 
 const Home = () => {
     return (
-        <div>
-            <h3>This is a Basic Setup for Certification Project III</h3>
-            <p>As you can see, we have a basic router setup, with links to separate pages</p>
-            <p>As you can see, we can open separate components in these routes </p>
-            <p>You will need to incorporate router logically into your project option,
-            and how you do it may differ according to which project you use
-            </p>
-        </div>
+        <>
+            <div className='home-container'>
+                <h1>
+                Welcome
+                </h1>
+                <h2>
+                    This is a Task Manager app!
+                </h2>
+                <h3>It has the following simple but practical features:</h3>
+                <hr/>
+                <ul>
+                    <li>You can add a task containing several subtasks.</li>
+                    <li>Each subtask could be marked as Done/Completed.</li>
+                    <li>Each subtask could be given a high, medium, or low priority.</li>
+                    <li>When all subtasks of a tasks are completed, the task itself will be mark as complete.</li>
+                    <li>The total progress of each task could be seen in Tasks tab.</li>
+                    <li>Deleting a task will remove all associated subtasks.</li>
+                </ul>
+            </div>
+        </>
     )
 }
 

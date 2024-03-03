@@ -18,13 +18,13 @@ import testReducer from './reducers/testReducer.js'
  * Creating the store w/reducers
  */
 const store = configureStore({
-  reducer: {
-    test: testReducer
-  }
+    reducer: {
+        test: testReducer
+    }
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+    <Provider store={store}>
+        <App />
+    </Provider>
 )

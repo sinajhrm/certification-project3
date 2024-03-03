@@ -1,0 +1,16 @@
+.home-container {
+    /* display: flex; */
+    text-align: center;
+    letter-spacing: 0.1rem;
+}
+
+.home-container  *
+{
+    margin: 1.5rem;
+}
+
+.home-container ul
+{
+    text-align: left;
+    text-wrap: pretty;
+}
