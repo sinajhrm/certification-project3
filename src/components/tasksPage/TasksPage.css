@@ -1,0 +1,11 @@
+.tasksPage-container * {
+vertical-align: middle;
+}
+
+.tasksPage-container ul {
+    list-style-type: none;
+}
+
+.tasksPage-container li {
+ padding: .75rem;
+}

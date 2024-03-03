@@ -9,9 +9,10 @@ import {
 /**
  * Importing other components
  */
-import Home from './components/home/Home'
+import Home from './components/homePage/Home'
 import About from './components/about/About'
 import Navbar from './components/navbar/navbar'
+import TasksPage from './components/tasksPage/TasksPage'
 
 const App = () => {
     return (
@@ -21,6 +22,11 @@ const App = () => {
                 <Routes>
                     <Route path="/home" element={<Home />} />
                     <Route path="/" element={<Home />} />
+
+                    <Route path="/tasks" element={<TasksPage />} />
+
+                    <Route path="/create" element={<Home />} />
+
                     <Route path="/about" element={<About />} />
                 </Routes>
             </div>
