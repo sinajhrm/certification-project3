@@ -1,10 +1,8 @@
-// I used ChatGPT to create async reading/writing of json files
-
 // eslint-disable-next-line no-unused-vars
-import * as Types from '../utils/types'
-import { readJSON, writeJSON } from './JSONService'
+import * as Types from '../utils/types.js'
+import { readJSON, writeJSON } from './JSONService.js'
 
-const DB_JSON_PATH = './data/taskList.json'
+const DB_JSON_PATH = '../../data/taskList.json'
 
 const TasksService = {
     /**
@@ -12,7 +10,7 @@ const TasksService = {
      * @returns {Types.Task[]}
      */
     GetAllTasks: async () => {
-        return await readJSON(DB_JSON_PATH)
+        return await readJSON(DB_JSON_PATH).tasks
     },
     /**
      *
@@ -29,11 +27,14 @@ const TasksService = {
      * @returns {Types.Task}
      */
     UpdateTask: async (newTask) => {
-        const tasks = await TasksService.GetAllTasks()
-        const newTasksWithoutTargetTask = tasks.filter((task) => task.id !== newTask.id)
-        await writeJSON(DB_JSON_PATH, newTasksWithoutTargetTask.concat(newTask))
+        const db = await readJSON(DB_JSON_PATH)
+        const newTasksWithoutTargetTask = db.tasks.filter((task) => task.id !== newTask.id)
+        db.tasks = newTasksWithoutTargetTask.concat(newTask)
+        await writeJSON(DB_JSON_PATH, db)
         return newTask
     }
 }
+
+console.log(await TasksService.GetTaskById('123'))
 
 export default TasksService

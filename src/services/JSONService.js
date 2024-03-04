@@ -1,5 +1,15 @@
+// I used ChatGPT to create async reading/writing of json files
+
+// eslint-disable-next-line no-unused-vars
+import * as Types from '../utils/types'
+
 import { readFile, writeFile } from 'fs/promises'
 
+/**
+ *
+ * @param {string} filePath
+ * @returns {Types.JSONDB}
+ */
 async function readJSON (filePath) {
     try {
         const data = await readFile(filePath, 'utf8')
@@ -20,12 +30,12 @@ async function writeJSON (filePath, obj) {
     }
 }
 
-async function testConnection () {
-    readJSON('./data/taskList.json').then((result) => {
+async function testConnection (jsonFilePath = '../../data/taskList.json') {
+    readJSON(jsonFilePath).then((result) => {
         console.log(`Content of the current db file: \n----------------------------------------\n ${JSON.stringify(result, null, 2)} \n----------------------------------------`)
     })
 }
 
-await testConnection()
+// await testConnection()
 
-export { readJSON, writeJSON }
+export { readJSON, writeJSON, testConnection }
