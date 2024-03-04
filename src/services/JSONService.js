@@ -1,7 +1,7 @@
 // I used ChatGPT to create async reading/writing of json files
 
 // eslint-disable-next-line no-unused-vars
-import * as Types from '../utils/types'
+import * as Types from '../utils/types.js'
 
 import { readFile, writeFile } from 'fs/promises'
 

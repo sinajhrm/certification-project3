@@ -10,7 +10,18 @@ const TasksService = {
      * @returns {Types.Task[]}
      */
     GetAllTasks: async () => {
-        return await readJSON(DB_JSON_PATH).tasks
+        return (await readJSON(DB_JSON_PATH)).tasks
+    },
+    /**
+     *
+     * @returns {Types.TaskWithSubtasks[]}
+     */
+    GetAllTasksConcatSubtasks: async () => {
+        const db = await readJSON(DB_JSON_PATH)
+        db.tasks.forEach((task, index) => {
+            db.tasks[index].subtasks = db.subtasks.filter((subtask) => subtask.taskId === task.id)
+        })
+        return db.tasks
     },
     /**
      *
@@ -19,7 +30,8 @@ const TasksService = {
      */
     GetTaskById: async (taskId) => {
         const tasks = await TasksService.GetAllTasks()
-        return tasks.filter((task) => task.id === taskId)[0]
+        console.log(tasks)
+        // return tasks.filter((task) => task.id === taskId)[0]
     },
 
     /**
@@ -35,6 +47,7 @@ const TasksService = {
     }
 }
 
-console.log(await TasksService.GetTaskById('123'))
+// console.log(await TasksService.GetTaskById('d3817270-8b27-4f20-8943-e4541f590d15'))
+// console.log(await TasksService.GetAllTasksConcatSubtasks())
 
 export default TasksService
