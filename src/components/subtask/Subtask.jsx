@@ -7,8 +7,11 @@ export default function Subtask ({ subtaskTitle = '', editMode = false, onSubtas
 
     return (
         <div className='subtask-container'>
-
-            <label><input type='checkbox'/></label>
+            <select disabled={!isEditingSubtask}>
+                <option value="in_progress">In Progress</option>
+                <option value="done">Done</option>
+                <option value="todo">ToDo</option>
+            </select>
             {isEditingSubtask
                 ? <input type='text' placeholder='Subtask Title' value={title} onChange={() => {}}/>
                 : <label className='task-title'>{title}</label>}
@@ -18,8 +21,10 @@ export default function Subtask ({ subtaskTitle = '', editMode = false, onSubtas
                 <option value="high">High</option>
             </select>
             <input type='date' />
-            {isEditingSubtask && <button onClick={() => { onSubtaskSubmit(title) }}>Submit</button>}
-            {isEditingSubtask && <button onClick={() => { onSubtaskSubmit(title) }}>Delete</button>}
+            {isEditingSubtask
+                ? <button onClick={() => { onSubtaskSubmit(title) }}>Submit</button>
+                : <button onClick={() => { onSubtaskSubmit(title) }}>Edit</button>}
+            <button onClick={() => { onSubtaskSubmit(title) }}>Delete</button>
         </div>
     )
 }

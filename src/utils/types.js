@@ -13,5 +13,13 @@
  * @property {string} title
  * @property {Subtask[]} subtasks
  *
+ * @typedef {object} TaskDetailParams
+ * @property {Task} task
+ *
+ * @typedef {object} TaskComponentParams
+ * @property {Task} task
+ * @property {boolean} editMode
+ * @property {Function} onSubtaskSubmit
+ *
  */
 export const Types = {}

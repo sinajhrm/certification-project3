@@ -4,6 +4,21 @@
     border-radius: .25rem;
     padding: .5rem;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+    justify-content: space-between;
+    align-items: center;
+    min-width: 15rem;
+}
+
+.task-container a {
+    text-decoration: none;
+    color: inherit;
+    margin: 0 auto 0 0;    
+}
+
+.task-container a:hover {
+    transition-duration: 250ms;
+    scale: 1.05;    
+    color: rgb(135, 195, 251);
 }
 
 .task-container * {
@@ -16,8 +31,8 @@
 }
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
     .task-container {
         display: inline;
     }
-}
+} */

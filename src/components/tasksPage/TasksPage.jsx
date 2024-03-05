@@ -13,25 +13,19 @@ export default function TasksPage () {
     ]
 
     const tasks = [
-        { id: 1, subtasks, title: 'Task 1 title', editing: true },
-        { id: 2, subtasks: [], title: 'Task 2 title', editing: true },
-        { id: 3, subtasks: [], title: 'Task 3 title', editing: true },
-        { id: 4, subtasks: [], title: 'Task 4 title', editing: true }
+        { id: '40465310-ff8c-4716-8c78-7aedd42d7b93', subtasks, title: 'Task 1 title', editing: false },
+        { id: '895a034d-e26b-4ffb-a23a-33e112eb7249', subtasks: [], title: 'Task 2 title', editing: false },
+        { id: 'e96d798d-996b-4987-92e5-95c17cd01676', subtasks: [], title: 'Task 3 title', editing: false },
+        { id: '2f9f3b60-ff60-48fc-b4a9-d49949ea9607', subtasks: [], title: 'Task 4 title', editing: false }
     ]
 
     return (
         <div className='tasksPage-container'>
             <ul>
-                {/* {subtasks.map((subtaskItem) => {
-                    return (
-                        <li key={subtaskItem.id}>
-                            <Subtask editMode={subtaskItem.editing} subtaskTitle={subtaskItem.title}/>
-                        </li>)
-                })} */}
                 {tasks.map((taskItem) => {
                     return (
                         <li key={taskItem.id}>
-                            <Task editMode={taskItem.editing} taskTitle={taskItem.title}/>
+                            <Task task={taskItem} editMode={taskItem.editing} />
                         </li>)
                 })}
             </ul>
