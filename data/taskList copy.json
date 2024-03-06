@@ -1,0 +1,38 @@
+[
+  {
+    "id": "d3817270-8b27-4f20-8943-e4541f590d15",
+    "title": "Work Tasks",
+    "subtasks": [
+      {
+        "title": "Finish Project Proposal",
+        "priority": "high",
+        "status": "in progress",
+        "due_date": "2024-03-15"
+      },
+      {
+        "title": "Prepare Presentation",
+        "priority": "medium",
+        "status": "todo",
+        "due_date": "2024-03-20"
+      }
+    ]
+  },
+  {
+    "id": "44107484-f5e4-4699-927b-a6e85c7b5b58",
+    "title": "School Tasks",
+    "subtasks": [
+      {
+        "title": "School Project 1",
+        "priority": "high",
+        "status": "in progress",
+        "due_date": "2024-03-15"
+      },
+      {
+        "title": "School Project 2",
+        "priority": "medium",
+        "status": "todo",
+        "due_date": "2024-03-20"
+      }
+    ]
+  }
+]
