@@ -21,5 +21,8 @@
  * @property {boolean} editMode
  * @property {Function} onSubtaskSubmit
  *
+ * @typedef {object} TasksPageParams
+ * @property {Task[]} tasks
+ *
  */
 export const Types = {}

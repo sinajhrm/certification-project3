@@ -1,29 +1,28 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable camelcase */
 // I used ChatGPT to create async reading/writing of json files
 
 // eslint-disable-next-line no-unused-vars
 import * as Types from '../utils/types.js'
 
-import { readFile, writeFile } from 'fs/promises'
+// import { readFile, writeFile } from 'fs/promises'
 
 /**
  *
  * @param {string} filePath
  * @returns {Types.JSONDB}
  */
-async function readJSON_Express () {
+async function readJSONExpress () {
     try {
         const response = await fetch('http://localhost:3000/tasksdb')
         const responseData = await response.json()
-        console.log(responseData)
+        // console.log(responseData)
         return responseData
     } catch (error) {
         console.error('Error getting data from server:', error.message)
     }
 }
 
-async function writeJSON_Express (obj) {
+async function writeJSONExpress (obj) {
     try {
         const response = await fetch('http://localhost:3000/updateTasksDb', {
             method: 'POST',
@@ -40,8 +39,8 @@ async function writeJSON_Express (obj) {
     }
 }
 
-async function testConnection_Express () {
-    readJSON_Express().then((result) => {
+async function testConnectionExpress () {
+    readJSONExpress().then((result) => {
         console.log(`Content of the current db file: \n----------------------------------------\n ${JSON.stringify(result, null, 2)} \n----------------------------------------`)
     })
 
@@ -74,6 +73,7 @@ async function testConnection (jsonFilePath = '../../data/taskList.json') {
     })
 }
 
-await testConnection_Express()
+// await testConnection_Express()
 
-export { readJSON_Express, writeJSON_Express, testConnection_Express }
+// export { readJSONExpress, writeJSONExpress, testConnection_Express }
+export { readJSONExpress, writeJSONExpress }

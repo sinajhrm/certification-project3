@@ -11,7 +11,7 @@ import * as Types from '../../utils/types.js'
  */
 export default function Task ({ task, editMode = false, onSubtaskSubmit = (value) => { console.log(`SUBTASK: ${value}`) } }) {
     const [isEditingTask, setIsEditingTask] = useState(editMode)
-    const [title] = useState(task.title)
+    const [title, setTitle] = useState(task.title)
 
     // onSubtaskSubmit
 
@@ -19,7 +19,7 @@ export default function Task ({ task, editMode = false, onSubtaskSubmit = (value
         <div className='task-container'>
             <label><input type='checkbox'/></label>
             {isEditingTask
-                ? <input type='text' placeholder='Task Title' value={title} onChange={() => {}}/>
+                ? <input type='text' placeholder='Task Title' value={title} onChange={(e) => { setTitle(e.target.value) }}/>
                 : <Link to={`/tasks/${task.id}`}>{task.title}</Link>}
 
             {isEditingTask

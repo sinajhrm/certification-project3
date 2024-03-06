@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import * as Types from '../utils/types'
 import { createSlice } from '@reduxjs/toolkit'
 
@@ -21,8 +22,7 @@ const initialStateCreator = () => {
  * @typedef addSubtaskToTaskAction
  * @property {addSubtaskToTaskPayload} payload
  *
- * @typedef addTaskPayload
- * @property {Types.Task} task
+ * @typedef {Types.Task} addTaskPayload
  *
  * @typedef addTaskAction
  * @property {addTaskPayload} payload
@@ -39,7 +39,8 @@ export const taskSlice = createSlice({
          * @param {addTaskAction} action
          */
         addTask: (state, action) => {
-            state.value.push(action.payload)
+            // console.log(action.payload)
+            if (state.value.filter((task) => task.id === action.payload?.id).length === 0) { state.value.push(action.payload) }
         },
         /**
          *
