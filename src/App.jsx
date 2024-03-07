@@ -25,17 +25,18 @@ const App = () => {
 
     const tasks = useSelector((state) => state.task.value)
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const fetchedTasks = await TasksService.GetAllTasks()
-            fetchedTasks.forEach((fetchedTask) => {
-                // console.log(fetchedTask)
-                dispatch(addTask(fetchedTask))
-            })
+    const fetchDataAndUpdateRedux = async () => {
+        const fetchedTasks = await TasksService.GetAllTasks()
+        fetchedTasks.forEach((fetchedTask) => {
+            // console.log(fetchedTask)
+            dispatch(addTask(fetchedTask))
+        })
 
-            // console.log(tasks)
-        }
-        fetchData()
+        // console.log(tasks)
+    }
+
+    useEffect(() => {
+        fetchDataAndUpdateRedux()
         setIsDataBeingLoaded(false)
     }, [])
 
@@ -48,8 +49,8 @@ const App = () => {
                     <Route path="/home" element={<Home />} />
                     <Route path="/" element={<Home />} />
 
-                    {/* <Route path="/tasks/:taskId" loader={async ({ params }) => { return await TasksService.GetTaskById(params.taskId) }} element={<TaskDetail />} /> */}
-                    <Route path="/tasks/:taskId" element={<TaskDetail task={tasks}/>} />
+                    <Route path="/tasks/:taskId" element={<TaskDetail task={tasks}/>}/>
+
                     <Route path="/tasks" element={<TasksPage />} />
 
                     <Route path="/create" element={<Home />} />

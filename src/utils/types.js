@@ -21,6 +21,11 @@
  * @property {boolean} editMode
  * @property {Function} onSubtaskSubmit
  *
+ * @typedef {object} SubtaskComponentParams
+ * @property {Subtask} subtask
+ * @property {boolean} editMode
+ * @property {Function} onSubtaskSubmit
+ *
  * @typedef {object} TasksPageParams
  * @property {Task[]} tasks
  *

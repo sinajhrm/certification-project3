@@ -6,14 +6,15 @@ import * as Types from '../../utils/types'
 import Subtask from '../subtask/Subtask'
 
 import { v4 as uuid } from 'uuid'
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-/**
- *
- * @param {Types.TaskDetailParams} props
- */
-export default function TaskDetail ({ task }) {
-    // const urlParams = useParams()
+export default function TaskDetail () {
+    const urlParams = useParams()
     // const task = useLoaderData()
+
+    const tasks = useSelector((state) => state.task.value)
+    const task = tasks.filter((task) => task.id === urlParams.taskId)[0]
 
     return (
         <div className='taskDetail-container'>
@@ -23,7 +24,7 @@ export default function TaskDetail ({ task }) {
                 {task.subtasks.map((subtaskItem) => {
                     return (
                         <li key={uuid()}>
-                            <Subtask editMode={subtaskItem.editing} subtaskTitle={subtaskItem.title}/>
+                            <Subtask editMode={false} subtask={subtaskItem}/>
                         </li>)
                 })}
             </ul>
