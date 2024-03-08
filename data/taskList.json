@@ -4,12 +4,14 @@
     "title": "Work Tasks",
     "subtasks": [
       {
+        "id": "132849e2-c663-46e7-b7a5-f7eb0192179e",
         "title": "Finish Project Proposal",
         "priority": "high",
         "status": "in progress",
         "due_date": "2024-03-15"
       },
       {
+        "id": "cc140920-8d9b-41ab-b9b7-574a53698367",
         "title": "Prepare Presentation",
         "priority": "medium",
         "status": "todo",
@@ -22,12 +24,14 @@
     "title": "School Tasks",
     "subtasks": [
       {
+        "id": "23319244-999e-4480-9100-3c85bb0d9c2b",
         "title": "School Project 1",
         "priority": "high",
         "status": "in progress",
         "due_date": "2024-03-15"
       },
       {
+        "id": "847d661f-7529-478d-ba49-9c08880dcfc5",
         "title": "School Project 2",
         "priority": "medium",
         "status": "todo",

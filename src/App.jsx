@@ -16,7 +16,7 @@ import TasksPage from './components/tasksPage/TasksPage'
 import TaskDetail from './components/taskDetail/TaskDetail'
 import TasksService from './services/TasksService.js'
 import { useSelector, useDispatch } from 'react-redux'
-import { addTask, setIsLoading } from './feature/tasksSlice.js'
+import { addTask } from './feature/tasksSlice.js'
 
 const App = () => {
     const [isDataBeingLoaded, setIsDataBeingLoaded] = useState(true)
@@ -31,8 +31,6 @@ const App = () => {
             // console.log(fetchedTask)
             dispatch(addTask(fetchedTask))
         })
-        dispatch(setIsLoading(false))
-        // console.log(tasks)
     }
 
     useEffect(() => {

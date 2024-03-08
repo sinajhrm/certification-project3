@@ -19,7 +19,7 @@ const TasksService = {
      */
     GetTaskById: async (taskId) => {
         const tasks = await TasksService.GetAllTasks()
-        return tasks.filter((task) => task.id === taskId)[0]
+        return tasks.find((task) => task.id === taskId)
     },
 
     /**

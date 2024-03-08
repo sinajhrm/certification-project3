@@ -5,7 +5,7 @@ import './TaskDetail.css'
 import * as Types from '../../utils/types'
 import Subtask from '../subtask/Subtask'
 
-import { v4 as uuid } from 'uuid'
+// import { v4 as uuid } from 'uuid'
 import { useSelector } from 'react-redux'
 import { Navigate, useParams } from 'react-router-dom'
 
@@ -18,7 +18,7 @@ export default function TaskDetail () {
     if (tasks.length === 0) {
         return (<Navigate to={'/'}/>)
     }
-    const task = tasks.filter((task) => task.id === urlParams.taskId)[0]
+    const task = tasks.find((task) => task.id === urlParams.taskId)
 
     return (
         <div className='taskDetail-container'>
@@ -27,8 +27,8 @@ export default function TaskDetail () {
             <ul>
                 {task.subtasks.map((subtaskItem) => {
                     return (
-                        <li key={uuid()}>
-                            <Subtask editMode={false} subtask={subtaskItem}/>
+                        <li key={subtaskItem.id}>
+                            <Subtask editMode={false} subtask={subtaskItem} taskId={urlParams.taskId}/>
                         </li>)
                 })}
             </ul>

@@ -28,10 +28,9 @@ const TasksService = {
      * @param {string} taskId
      * @returns {Types.Task}
      */
-    GetTaskById: async (taskId) => {
+    GetTaskById: async () => {
         const tasks = await TasksService.GetAllTasks()
         console.log(tasks)
-        // return tasks.filter((task) => task.id === taskId)[0]
     },
 
     /**

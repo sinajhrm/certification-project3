@@ -46,6 +46,19 @@ export const taskSlice = createSlice({
          * @param {addSubtaskToTaskAction} action
         */
         addSubtaskToTask: (state, action) => {
+            const { taskId, subtask } = action.payload
+            console.log(action.payload)
+            const taskToUpdate = state.value.find(task => task.id === taskId)
+            if (taskToUpdate) {
+                const existingSubtaskIndex = taskToUpdate.subtasks.findIndex(existingSubtask => existingSubtask.id === subtask.id)
+                if (existingSubtaskIndex !== -1) {
+                    // Update existing subtask
+                    taskToUpdate.subtasks[existingSubtaskIndex] = subtask
+                } else {
+                    // Add new subtask
+                    taskToUpdate.subtasks.push(subtask)
+                }
+            }
         }
 
     }

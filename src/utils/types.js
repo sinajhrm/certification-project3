@@ -3,6 +3,7 @@
  * @typedef {Task[]} JSONDB
  *
  * @typedef {object} Subtask
+ * @property {string} id
  * @property {string} title
  * @property {Date} due_date
  * @property {string} status
@@ -22,9 +23,10 @@
  * @property {Function} onSubtaskSubmit
  *
  * @typedef {object} SubtaskComponentParams
+ * @property {string} taskId
  * @property {Subtask} subtask
  * @property {boolean} editMode
- * @property {Function} onSubtaskSubmit
+//  * @property {Function} onSubtaskSubmit
  *
  * @typedef {object} TasksPageParams
  * @property {Task[]} tasks
