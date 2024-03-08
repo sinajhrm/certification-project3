@@ -7,13 +7,17 @@ import Subtask from '../subtask/Subtask'
 
 import { v4 as uuid } from 'uuid'
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 
 export default function TaskDetail () {
     const urlParams = useParams()
     // const task = useLoaderData()
 
     const tasks = useSelector((state) => state.task.value)
+
+    if (tasks.length === 0) {
+        return (<Navigate to={'/'}/>)
+    }
     const task = tasks.filter((task) => task.id === urlParams.taskId)[0]
 
     return (

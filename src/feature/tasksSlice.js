@@ -9,9 +9,7 @@ import { createSlice } from '@reduxjs/toolkit'
  * @returns {taskStateType}
  */
 const initialStateCreator = () => {
-    return {
-        value: []
-    }
+    return { value: [] }
 }
 
 /**
