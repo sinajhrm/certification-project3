@@ -3,8 +3,9 @@ import * as Types from '../../utils/types'
 import React, { useState } from 'react'
 import './Subtask.css'
 import { useDispatch } from 'react-redux'
-import { addSubtaskToTask } from '../../feature/tasksSlice'
+import { addUpdateSubtaskToTask, deleteSubtask } from '../../feature/tasksSlice'
 import TasksService from '../../services/TasksService'
+// import { v4 as uuid } from 'uuid'
 
 /**
  *
@@ -33,10 +34,17 @@ export default function Subtask ({ editMode, subtask, taskId }) {
         }
         TasksService.AddUpdateSubtask(updateSubtaskRequestObj).then(
             () => {
-                dispatch(addSubtaskToTask(
+                dispatch(addUpdateSubtaskToTask(
                     updateSubtaskRequestObj
                 ))
             }
+        ).then(setIsEditingSubtask(false))
+    }
+
+    const handleDeleteSubtask = () => {
+        const deleteSubtaskRequestObj = { taskId, subtaskId: subtask.id }
+        TasksService.DeleteSubtask(deleteSubtaskRequestObj).then(
+            () => dispatch(deleteSubtask(deleteSubtaskRequestObj))
         )
     }
 
@@ -59,7 +67,7 @@ export default function Subtask ({ editMode, subtask, taskId }) {
             {isEditingSubtask
                 ? <button onClick={() => { handleSubmitSubTask() }}>Submit</button>
                 : <button onClick={() => { setIsEditingSubtask(true) }}>Edit</button>}
-            <button onClick={() => { handleSubmitSubTask() }}>Delete</button>
+            {isEditingSubtask && <button onClick={() => { handleDeleteSubtask() }}>Delete</button>}
         </div>
     )
 }

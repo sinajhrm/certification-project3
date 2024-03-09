@@ -23,14 +23,26 @@ const TasksService = {
     },
 
     /**
+     * Ppdates a task to json object if it does not exists (based on its id). Otherwise, creates it.
      * @param {Types.Task} newTask
      * @returns {Types.Task}
      */
-    UpdateTask: async (newTask) => {
-        const tasks = TasksService.GetAllTasks()
-        const newTasksWithoutTargetTask = tasks.filter((task) => task.id !== newTask.id)
-        await writeJSONExpress(DB_JSON_PATH, newTasksWithoutTargetTask.concat(newTask))
-        return newTask
+    AddUpdateTask: async ({ updatedTask }) => {
+        const allTasks = await TasksService.GetAllTasks()
+        const existingTaskIndex = allTasks.findIndex(task => task.id === updatedTask.id)
+        if (existingTaskIndex !== -1) {
+            // Update existing task
+            allTasks[existingTaskIndex] = updatedTask
+        } else {
+            // Add new task
+            allTasks.push(updatedTask)
+        }
+        return await TasksService.Save(allTasks)
+    },
+
+    DeleteTask: async ({ taskId }) => {
+        const allTasks = await TasksService.GetAllTasks()
+        await TasksService.Save(allTasks.filter((taskItem) => taskItem.id !== taskId))
     },
 
     AddUpdateSubtask: async ({ subtask, taskId }) => {
@@ -48,6 +60,15 @@ const TasksService = {
                 // Add new subtask
                 allTasks[taskToUpdateIndex].subtasks.push(subtask)
             }
+        }
+        await TasksService.Save(allTasks)
+    },
+
+    DeleteSubtask: async ({ subtaskId, taskId }) => {
+        const allTasks = await TasksService.GetAllTasks()
+        const taskToUpdate = allTasks.find(task => task.id === taskId)
+        if (taskToUpdate) {
+            taskToUpdate.subtasks = taskToUpdate.subtasks.filter(subtask => subtask.id !== subtaskId)
         }
         await TasksService.Save(allTasks)
     },

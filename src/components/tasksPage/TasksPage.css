@@ -1,8 +1,9 @@
-
-
 .tasksPage-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 .tasksPage-container ul {
     list-style-type: none;
     padding: 0;
