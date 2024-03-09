@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import './Subtask.css'
 import { useDispatch } from 'react-redux'
 import { addSubtaskToTask } from '../../feature/tasksSlice'
+import TasksService from '../../services/TasksService'
 
 /**
  *
@@ -20,35 +21,39 @@ export default function Subtask ({ editMode, subtask, taskId }) {
     const dispatch = useDispatch()
 
     const handleSubmitSubTask = () => {
-        console.log('?')
-        dispatch(addSubtaskToTask(
-            {
-                subtask: {
-                    id: subtask.id,
-                    title,
-                    due_date: dueDateString,
-                    status,
-                    priority
-                },
-                taskId
+        const updateSubtaskRequestObj = {
+            subtask: {
+                id: subtask.id,
+                title,
+                due_date: dueDateString,
+                status,
+                priority
+            },
+            taskId
+        }
+        TasksService.AddUpdateSubtask(updateSubtaskRequestObj).then(
+            () => {
+                dispatch(addSubtaskToTask(
+                    updateSubtaskRequestObj
+                ))
             }
-        ))
+        )
     }
 
     return (
         <div className='subtask-container'>
-            <select disabled={!isEditingSubtask} onChange={(e) => { setStatus(e.target.value) }}>
-                <option value="in_progress" selected={subtask.status === 'in_progress'}>In Progress</option>
-                <option value="done" selected={subtask.status === 'done'}>Done</option>
-                <option value="todo" selected={subtask.status === 'todo'}>ToDo</option>
+            <select disabled={!isEditingSubtask} value={status} onChange={(e) => { setStatus(e.target.value) }}>
+                <option value="in_progress" >In Progress</option>
+                <option value="done" >Done</option>
+                <option value="todo" >ToDo</option>
             </select>
             {isEditingSubtask
                 ? <input type='text' placeholder='Subtask Title' value={title} onChange={(e) => { setSubtaskTitle(e.target.value) }}/>
                 : <label className='task-title'>{title}</label>}
-            <select disabled={!isEditingSubtask} onChange={(e) => { setPriority(e.target.value) }}>
-                <option value="low" selected={subtask.priority === 'low'}>Low</option>
-                <option value="medium" selected={subtask.priority === 'medium'}>Medium</option>
-                <option value="high" selected={subtask.priority === 'high'}>High</option>
+            <select disabled={!isEditingSubtask} value={priority} onChange={(e) => { setPriority(e.target.value) }}>
+                <option value="low" >Low</option>
+                <option value="medium" >Medium</option>
+                <option value="high" >High</option>
             </select>
             <input type='date' disabled={!isEditingSubtask} value={dueDateString} onChange={(e) => { setDueDateString(e.target.value) }}/>
             {isEditingSubtask

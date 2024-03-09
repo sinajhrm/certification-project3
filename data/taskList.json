@@ -6,9 +6,9 @@
       {
         "id": "132849e2-c663-46e7-b7a5-f7eb0192179e",
         "title": "Finish Project Proposal",
-        "priority": "high",
+        "due_date": "2024-03-15",
         "status": "in progress",
-        "due_date": "2024-03-15"
+        "priority": "low"
       },
       {
         "id": "cc140920-8d9b-41ab-b9b7-574a53698367",
@@ -25,10 +25,10 @@
     "subtasks": [
       {
         "id": "23319244-999e-4480-9100-3c85bb0d9c2b",
-        "title": "School Project 1",
-        "priority": "high",
+        "title": "Another name for School Project 1",
+        "due_date": "2024-03-15",
         "status": "in progress",
-        "due_date": "2024-03-15"
+        "priority": "high"
       },
       {
         "id": "847d661f-7529-478d-ba49-9c08880dcfc5",
