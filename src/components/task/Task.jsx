@@ -45,7 +45,7 @@ export default function Task ({ task, editMode = false }) {
 
     return (
         <div className='task-container'>
-            <label><input type='checkbox'/></label>
+            <label><input type='checkbox' checked={task.subtasks.every((subtaskItem) => subtaskItem.status === 'done')}/></label>
             {isEditingTask
                 ? <input type='text' placeholder='Task Title' value={title} onChange={(e) => { setTitle(e.target.value) }}/>
                 : <Link to={`/tasks/${task.id}`}>{task.title}</Link>}

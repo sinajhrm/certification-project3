@@ -10,7 +10,7 @@ const Navbar = () => {
                 <ul>
                     <ActiveClassLink to="/">Home</ActiveClassLink>
                     <ActiveClassLink to="/tasks">Tasks</ActiveClassLink>
-                    <ActiveClassLink to="/create">Create</ActiveClassLink>
+                    {/* <ActiveClassLink to="/create">Create</ActiveClassLink> */}
                     <ActiveClassLink to="/contact">Contact</ActiveClassLink>
                 </ul>
             </nav>
