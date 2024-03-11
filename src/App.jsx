@@ -11,12 +11,13 @@ import {
  */
 import Home from './components/homePage/Home'
 import About from './components/about/About'
-import Navbar from './components/navbar/navbar'
+import Navbar from './components/navbar/Navbar'
 import TasksPage from './components/tasksPage/TasksPage'
 import TaskDetail from './components/taskDetail/TaskDetail'
 import TasksService from './services/TasksService.js'
 import { useSelector, useDispatch } from 'react-redux'
 import { addTask } from './feature/tasksSlice.js'
+import ContactMe from './components/contactMe/ContactMe.jsx'
 
 const App = () => {
     const [isDataBeingLoaded, setIsDataBeingLoaded] = useState(true)
@@ -54,6 +55,8 @@ const App = () => {
                     <Route path="/create" element={<Home />} />
 
                     <Route path="/about" element={<About />} />
+
+                    <Route path="/contact" element={<ContactMe />} />
                 </Routes>
             </div>
         </Router>
