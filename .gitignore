@@ -1,4 +1,5 @@
 .gitignore
+/client/data
 
 # Logs
 logs
