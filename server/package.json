@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "cross-env NODE_ENV=dev node server.js",
-    "initDb": "cross-env NODE_ENV=dev node ./config/mongodb.js"
+    "initDb": "cross-env NODE_ENV=dev node ./config/initTasksNSubtasks.js"
   },
   "author": "Sina",
   "license": "ISC",

@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
 
 const makeConnection = async () => {
-    const databaseURL = process.env.MONGODB_URI
+    const databaseURL = process.env.MONGODB_URI_DEVDB
     try {
         console.log(`connecting to... ${databaseURL}`)
         await mongoose
@@ -26,6 +26,6 @@ const closeConnection = async () => {
     }
 }
 
-makeConnection().then(closeConnection())
+// makeConnection().then(closeConnection())
 
 module.exports = { makeConnection, closeConnection }
