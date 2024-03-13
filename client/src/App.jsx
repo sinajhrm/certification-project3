@@ -27,7 +27,7 @@ const App = () => {
     const tasks = useSelector((state) => state.task.value)
 
     const fetchDataAndUpdateRedux = async () => {
-        const fetchedTasks = await TasksService.GetAllTasks()
+        const fetchedTasks = await TasksService.GetAllTasks(true)
         fetchedTasks.forEach((fetchedTask) => {
             // console.log(fetchedTask)
             dispatch(addTask(fetchedTask))

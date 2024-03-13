@@ -5,7 +5,8 @@ import './TasksPage.css'
 import Task from '../task/Task'
 import { useDispatch, useSelector } from 'react-redux'
 import { addUpdateTask } from '../../feature/tasksSlice'
-import { v4 as uuid } from 'uuid'
+// import { v4 as uuid } from 'uuid'
+import { ObjectId } from 'bson'
 
 export default function TasksPage () {
     const dispatch = useDispatch()
@@ -16,7 +17,7 @@ export default function TasksPage () {
         dispatch(addUpdateTask(
             {
                 updatedTask: {
-                    id: uuid(),
+                    id: (new ObjectId()).toString(),
                     title: '',
                     subtasks: []
                 }

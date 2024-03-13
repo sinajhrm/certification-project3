@@ -26,5 +26,10 @@ module.exports = {
             'error',
             4
         ]
-    }
+    },
+    "spaced-comment": [ "error", "always", {
+        "line": {
+            "markers": ["#region", "#endregion", "region", "endregion"]
+        }
+    }]
 }
