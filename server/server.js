@@ -7,12 +7,14 @@ const app = express()
 
 const morgan = require('morgan')
 const tasksRouter = require('./router/task')
+const usersRouter = require('./router/users')
 
 app.use(cors())
 app.use(express.json())
 
 app.use(morgan('dev'))
-app.use('/api', tasksRouter)
+app.use('/api/tasks', tasksRouter)
+app.use('/api/users', usersRouter)
 
 const server = async () => {
     await db.makeConnection()

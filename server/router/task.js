@@ -4,8 +4,7 @@ const taskRouter = express.Router()
 const Task = require('../models/task')
 const Subtask = require('../models/subtask')
 
-//#region region Tasks' Routes
-taskRouter.get('/tasks', async (request, response) => {
+taskRouter.get('/', async (request, response) => {
     const { popSubtasks } = request.query
     // console.log(popSubtasks)
     let tasks = null
@@ -17,10 +16,9 @@ taskRouter.get('/tasks', async (request, response) => {
 
     response.json(tasks)
 })
-//#endregion
 
 // Get a specific task by ID
-taskRouter.get('/tasks/:taskId', async (req, res) => {
+taskRouter.get('/:taskId', async (req, res) => {
     const taskId = req.params.taskId;
     try {
         const task = await Task.findById(taskId);
@@ -34,7 +32,7 @@ taskRouter.get('/tasks/:taskId', async (req, res) => {
 });
 
 // Add or update a task
-taskRouter.post('/tasks', async (req, res) => {
+taskRouter.post('/', async (req, res) => {
     const { updatedTask } = req.body;
     // console.log(updatedTask)
     try {
@@ -54,7 +52,7 @@ taskRouter.post('/tasks', async (req, res) => {
 });
 
 // Delete a task
-taskRouter.delete('/tasks/:taskId', async (req, res) => {
+taskRouter.delete('/:taskId', async (req, res) => {
     const taskId = req.params.taskId;
     try {
         let result = await Task.findByIdAndDelete(taskId);
@@ -67,7 +65,7 @@ taskRouter.delete('/tasks/:taskId', async (req, res) => {
 });
 
 // Add or update a subtask for a specific task
-taskRouter.post('/tasks/:taskId/subtasks', async (req, res) => {
+taskRouter.post('/:taskId/subtasks', async (req, res) => {
     const taskId = req.params.taskId;
     const subtaskData = req.body;
     console.log(taskId)
@@ -95,7 +93,7 @@ taskRouter.post('/tasks/:taskId/subtasks', async (req, res) => {
 });
 
 // Delete a subtask for a specific task
-taskRouter.delete('/tasks/:taskId/subtasks/:subtaskId', async (req, res) => {
+taskRouter.delete('/:taskId/subtasks/:subtaskId', async (req, res) => {
     const taskId = req.params.taskId;
     const subtaskId = req.params.subtaskId;
     try {
