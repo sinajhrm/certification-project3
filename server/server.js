@@ -8,6 +8,7 @@ const app = express()
 const morgan = require('morgan')
 const tasksRouter = require('./router/task')
 const usersRouter = require('./router/users')
+const loginRouter = require('./router/login')
 
 app.use(cors())
 app.use(express.json())
@@ -15,6 +16,8 @@ app.use(express.json())
 app.use(morgan('dev'))
 app.use('/api/tasks', tasksRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
+
 
 const server = async () => {
     await db.makeConnection()
