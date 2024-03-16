@@ -1,4 +1,4 @@
-// This route is derived from phonebook example
+// This router is derived from phonebook example
 
 const express = require('express')
 const bcrypt = require('bcryptjs')
