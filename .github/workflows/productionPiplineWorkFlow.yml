@@ -1,0 +1,73 @@
+# Useful links: 
+# https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idneeds
+
+name: Production Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - production
+
+env:
+  # Frontend variables
+  VITE_API_CURRENCY_BURL: ${{secrets.VITE_API_CURRENCY_BURL}}
+  VITE_API_COUNTRY_BURL: ${{secrets.VITE_API_COUNTRY_BURL}}
+  
+  # Backend variables
+  PASSWORD: ${{secrets.PASSWORD}}
+  INTRL_DB_URL: ${{secrets.INTRL_DB_URL}}
+  EXTRL_DB_WUP_URL: ${{secrets.EXTRL_DB_WUP_URL}}
+  EXTRL_DB_WoA_URL: ${{secrets.EXTRL_DB_WoA_URL}}
+  DB_PORT: ${{secrets.DB_PORT}}
+  DB_HOST: ${{secrets.DB_HOST}}
+  DB_NAME: ${{secrets.DB_NAME}}
+
+jobs:
+  frontEndTestPipeline:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
+    needs: backendTestPipeline
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: npm install
+      
+      # - name: Run frontend tests
+      #   run: npm run test
+        
+  backendTestPipeline:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: ./server
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+      
+      - name: Install dependencies
+        run: npm install
+        
+      # - name: Run backend tests
+      #   run: npm run test
+        
+  deployOnRender:
+    runs-on: ubuntu-20.04
+    needs: [backendTestPipeline, frontEndTestPipeline]
+    steps:
+      - name: Deploy backend on Render
+        run: curl ${{ secrets.SERVER_DEPLOYMENT_HOOK }}
+      
+      - name: Deploy frontend on Render
+        run: curl ${{ secrets.CLIENT_DEPLOYMENT_HOOK }}
+      
