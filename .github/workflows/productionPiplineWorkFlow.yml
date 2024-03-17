@@ -61,13 +61,13 @@ jobs:
       # - name: Run backend tests
       #   run: npm run test
         
-  deployOnRender:
-    runs-on: ubuntu-20.04
-    needs: [backendTestPipeline, frontEndTestPipeline]
-    steps:
-      - name: Deploy backend on Render
-        run: curl ${{ secrets.SERVER_DEPLOYMENT_HOOK }}
+  # deployOnRender:
+  #   runs-on: ubuntu-20.04
+  #   needs: [backendTestPipeline, frontEndTestPipeline]
+  #   steps:
+  #     - name: Deploy backend on Render
+  #       run: curl ${{ secrets.SERVER_DEPLOYMENT_HOOK }}
       
-      - name: Deploy frontend on Render
-        run: curl ${{ secrets.CLIENT_DEPLOYMENT_HOOK }}
+  #     - name: Deploy frontend on Render
+  #       run: curl ${{ secrets.CLIENT_DEPLOYMENT_HOOK }}
       
