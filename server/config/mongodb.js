@@ -4,10 +4,13 @@ const path = require('path')
 require('dotenv').config({ path: path.join(__dirname, '../.env') })
 
 const mongoose = require('mongoose')
+const dbConnectionString = require('../utils/EnvironmentHelper')
 mongoose.set('strictQuery', false)
 
+const connectionString = dbConnectionString()
+
 const makeConnection = async () => {
-    const databaseURL = process.env.MONGODB_URI_DEVDB
+    const databaseURL = connectionString
     try {
         console.log(`connecting to... ${databaseURL}`)
         await mongoose
