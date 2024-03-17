@@ -4,6 +4,7 @@
   "description": "Server for TaskManager client (Certification 4 Project)",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "initDb": "cross-env NODE_ENV=dev node ./config/initTasksNSubtasks.js",
     "initDb_Users": "cross-env NODE_ENV=dev node ./config/initUsersNTasksNSubtasks.js",
     "dev": "cross-env NODE_ENV=dev nodemon server.js",
