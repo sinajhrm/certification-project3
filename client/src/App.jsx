@@ -10,6 +10,7 @@ import {
  * Importing other components
  */
 import Home from './components/homePage/Home'
+import LoginForm from './components/login/Login'
 import About from './components/about/About'
 import Navbar from './components/navbar/Navbar'
 import TasksPage from './components/tasksPage/TasksPage'
@@ -18,9 +19,12 @@ import TasksService from './services/TasksService.js'
 import { useSelector, useDispatch } from 'react-redux'
 import { addTask } from './feature/tasksSlice.js'
 import ContactMe from './components/contactMe/ContactMe.jsx'
+import UsersService from './services/UsersService.js'
+import LocalStorageService from './services/LocalStorageService.js'
 
 const App = () => {
     const [isDataBeingLoaded, setIsDataBeingLoaded] = useState(true)
+    const [user, setUser] = useState(null)
 
     const dispatch = useDispatch()
 
@@ -39,28 +43,42 @@ const App = () => {
         setIsDataBeingLoaded(false)
     }, [])
 
+    const handleLogin = (user) => {
+        UsersService
+            .login(user)
+            .then((response) => {
+                setUser(response)
+                LocalStorageService.storeUser(response)
+            })
+            .catch((error) => console.log(error))
+    }
+
     if (isDataBeingLoaded) return (<><h1>Loading ...</h1></>)
-    return (
-        <Router>
-            <Navbar />
-            <div className='app-content'>
-                <Routes>
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/" element={<Home />} />
+    if (user === null) {
+        return (<LoginForm onLogin={handleLogin} />)
+    } else {
+        return (
+            <Router>
+                <Navbar />
+                <div className='app-content'>
+                    <Routes>
+                        <Route path="/home" element={<Home />} />
+                        <Route path="/" element={<Home />} />
 
-                    <Route path="/tasks/:taskId" element={<TaskDetail task={tasks}/>}/>
+                        <Route path="/tasks/:taskId" element={<TaskDetail task={tasks} />} />
 
-                    <Route path="/tasks" element={<TasksPage />} />
+                        <Route path="/tasks" element={<TasksPage />} />
 
-                    {/* <Route path="/create" element={<CreateTask />} /> */}
+                        {/* <Route path="/create" element={<CreateTask />} /> */}
 
-                    <Route path="/about" element={<About />} />
+                        <Route path="/about" element={<About />} />
 
-                    <Route path="/contact" element={<ContactMe />} />
-                </Routes>
-            </div>
-        </Router>
-    )
+                        <Route path="/contact" element={<ContactMe />} />
+                    </Routes>
+                </div>
+            </Router>
+        )
+    }
 }
 
 export default App
