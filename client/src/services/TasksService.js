@@ -31,6 +31,7 @@ const TasksService = {
 
     AddUpdateTask: async (task) => {
         try {
+            console.log(task)
             const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`, task)
             return response.data
         } catch (error) {

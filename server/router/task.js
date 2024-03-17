@@ -34,19 +34,27 @@ taskRouter.get('/:taskId', async (req, res) => {
 
 // Add or update a task
 taskRouter.post('/', async (req, res) => {
-    const { updatedTask } = req.body;
-    // console.log(updatedTask)
+    const { updatedTask, userId } = req.body;
     try {
-        let task = await Task.findById(updatedTask.id)
-        // console.log(task)
-        if (task) {
-            Task.findByIdAndUpdate(task.id, task)
-            return res.json({ message: 'Task updated successfully!', data: task })
+        let task;
+        const existingTask = await Task.findById(updatedTask.id);
+        if (existingTask) {
+            task = await Task.findByIdAndUpdate(updatedTask.id, updatedTask, { new: false });
+        } else {
+            task = await Task.create(updatedTask);
+            const user = await User.findById(userId);
+
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            user.tasks.push(task._id);
+
+            await user.save();
         }
-        else {
-            task = await Task.create(updatedTask)
-            return res.json({ message: 'Task created successfully!', data: task });
-        }
+
+
+        return res.json(task);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
