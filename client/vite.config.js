@@ -10,5 +10,13 @@ export default defineConfig({
         // The function to generate import names of top-level await promise in each chunk module
         promiseImportName: i => `__tla_${i}`
     }),
-    react()]
+    react()],
+    server: {
+        proxy: {
+            '/api': {
+                target: 'http://localhost:3001',
+                changeOrigin: true
+            }
+        }
+    }
 })
