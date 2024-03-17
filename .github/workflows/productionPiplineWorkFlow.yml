@@ -9,20 +9,6 @@ on:
     branches:
       - production
 
-env:
-  # Frontend variables
-  VITE_API_CURRENCY_BURL: ${{secrets.VITE_API_CURRENCY_BURL}}
-  VITE_API_COUNTRY_BURL: ${{secrets.VITE_API_COUNTRY_BURL}}
-  
-  # Backend variables
-  PASSWORD: ${{secrets.PASSWORD}}
-  INTRL_DB_URL: ${{secrets.INTRL_DB_URL}}
-  EXTRL_DB_WUP_URL: ${{secrets.EXTRL_DB_WUP_URL}}
-  EXTRL_DB_WoA_URL: ${{secrets.EXTRL_DB_WoA_URL}}
-  DB_PORT: ${{secrets.DB_PORT}}
-  DB_HOST: ${{secrets.DB_HOST}}
-  DB_NAME: ${{secrets.DB_NAME}}
-
 jobs:
   frontEndTestPipeline:
     runs-on: ubuntu-latest
