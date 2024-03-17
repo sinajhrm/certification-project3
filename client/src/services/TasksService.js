@@ -8,11 +8,11 @@ import axios from 'axios'
 // dotenv.config({ path: path.join(__dirname, '../.env') })
 
 const TasksService = {
-    GetAllTasks: async (popSubtasks = false) => {
+    GetAllTasks: async (userId, popSubtasks = false) => {
         // console.log(popSubtasks)
         try {
             const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`,
-                { params: { popSubtasks } })
+                { params: { popSubtasks, userId } })
             // console.log(response.data)
             return response.data
         } catch (error) {

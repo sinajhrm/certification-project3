@@ -31,30 +31,41 @@ const App = () => {
     const tasks = useSelector((state) => state.task.value)
 
     const fetchDataAndUpdateRedux = async () => {
-        const fetchedTasks = await TasksService.GetAllTasks(true)
+        const fetchedTasks = await TasksService.GetAllTasks(LocalStorageService.getUser().id, true)
         fetchedTasks.forEach((fetchedTask) => {
-            // console.log(fetchedTask)
             dispatch(addTask(fetchedTask))
         })
     }
 
     useEffect(() => {
-        fetchDataAndUpdateRedux()
-        setIsDataBeingLoaded(false)
+        const loggedInUser = LocalStorageService.getUser()
+        console.log(['logged-in user:', loggedInUser])
+        if (loggedInUser) {
+            setUser(loggedInUser)
+        }
     }, [])
+
+    useEffect(() => {
+        if (user) {
+            fetchDataAndUpdateRedux()
+            setIsDataBeingLoaded(false)
+        }
+    }, [user])
 
     const handleLogin = (user) => {
         UsersService
             .login(user)
             .then((response) => {
+                console.log(['user service response: ', response])
                 setUser(response)
                 LocalStorageService.storeUser(response)
+                return response
             })
             .catch((error) => console.log(error))
     }
 
-    if (isDataBeingLoaded) return (<><h1>Loading ...</h1></>)
-    if (user === null) {
+    if (isDataBeingLoaded && user) return (<><h1>Loading ...</h1></>)
+    if (!LocalStorageService.getUser()) {
         return (<LoginForm onLogin={handleLogin} />)
     } else {
         return (

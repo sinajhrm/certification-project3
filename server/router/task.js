@@ -3,14 +3,15 @@ const taskRouter = express.Router()
 
 const Task = require('../models/task')
 const Subtask = require('../models/subtask')
+const User = require('../models/user')
 
 taskRouter.get('/', async (request, response) => {
-    const { popSubtasks } = request.query
-    // console.log(popSubtasks)
+    const { popSubtasks, userId } = request.query
+    console.log(request.query)
     let tasks = null
-    // Why it populates it and ignores the if/else line???!
+
     if (popSubtasks)
-        tasks = (await Task.find().populate('subtasks'))
+        tasks = (await User.findById(userId).populate({ path: 'tasks', populate: { path: 'subtasks' } })).tasks
     else
         tasks = (await Task.find())
 
