@@ -67,6 +67,20 @@ taskRouter.delete('/:taskId', async (req, res) => {
         let result = await Task.findByIdAndDelete(taskId);
         if (!result)
             return res.json({ message: 'Error happend while deleting task' })
+
+        const user = await User.findOne({ tasks: taskId });
+
+        if (!user) {
+            return res.json({ message: 'User not found' });
+        }
+
+        // Remove the task's ID from the user's tasks array
+        user.tasks = user.tasks.filter(task => task.toString() !== taskId);
+
+        // Save the updated user document
+        await user.save();
+
+
         res.json({ message: 'Task deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: error.message });
