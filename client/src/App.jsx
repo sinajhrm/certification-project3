@@ -75,14 +75,20 @@ const App = () => {
             })
             .catch((error) => console.log(error))
     }
-
+    /**
+     * Handles logout, sets user to null
+     */
+    const handleLogout = () => {
+        LocalStorageService.removeUser()
+        setUser(null)
+    }
     if (isDataBeingLoaded && user) return (<><h1>Loading ...</h1></>)
     if (!LocalStorageService.getUser()) {
         return (<LoginForm onLogin={handleLogin} onCreate={handleCreate} />)
     } else {
         return (
             <Router>
-                <Navbar />
+                <Navbar onLogout={handleLogout} />
                 <div className='app-content'>
                     <Routes>
                         <Route path="/home" element={<Home />} />
