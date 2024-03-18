@@ -49,7 +49,7 @@ const TasksService = {
 
     AddUpdateSubtask: async ({ taskId, subtask }) => {
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/tasks/${taskId}/subtasks`, subtask)
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/tasks/subtasks/${taskId}`, subtask)
             return response.data
         } catch (error) {
             throw new Error(`Error while adding/updating subtask: ${error.message}`)
@@ -58,7 +58,7 @@ const TasksService = {
 
     DeleteSubtask: async ({ taskId, subtaskId }) => {
         try {
-            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/tasks/${taskId}/subtasks/${subtaskId}`)
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/tasks/subtasks/${taskId}/${subtaskId}`)
         } catch (error) {
             throw new Error(`Error while deleting subtask with ID ${subtaskId} from task with ID ${taskId}: ${error.message}`)
         }

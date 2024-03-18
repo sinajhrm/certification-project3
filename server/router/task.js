@@ -80,6 +80,8 @@ taskRouter.delete('/:taskId', async (req, res) => {
         // Save the updated user document
         await user.save();
 
+        //https://www.mongodb.com/docs/manual/reference/operator/query/in/
+        await Subtask.deleteMany({ _id: { $in: result.subtasks } });
 
         res.json({ message: 'Task deleted successfully' });
     } catch (error) {
@@ -88,7 +90,7 @@ taskRouter.delete('/:taskId', async (req, res) => {
 });
 
 // Add or update a subtask for a specific task
-taskRouter.post('/:taskId/subtasks', async (req, res) => {
+taskRouter.post('/subtasks/:taskId', async (req, res) => {
     const taskId = req.params.taskId;
     const subtaskData = req.body;
     console.log(taskId)
@@ -116,7 +118,7 @@ taskRouter.post('/:taskId/subtasks', async (req, res) => {
 });
 
 // Delete a subtask for a specific task
-taskRouter.delete('/:taskId/subtasks/:subtaskId', async (req, res) => {
+taskRouter.delete('/subtasks/:taskId/:subtaskId', async (req, res) => {
     const taskId = req.params.taskId;
     const subtaskId = req.params.subtaskId;
     try {
