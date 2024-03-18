@@ -100,9 +100,9 @@ taskRouter.post('/subtasks/:taskId', async (req, res) => {
         if (!task) {
             return res.status(404).json({ message: 'Task not found' });
         }
-        let subtaskInsideTask = task.subtasks.find(subtaskIds => subtaskIds === subtaskData.id)
+        let subtaskInsideTask = task.subtasks.find(subtaskIds => subtaskIds.toString() === subtaskData.id)
         if (subtaskInsideTask) {
-            await Subtask.findByIdAndUpdate(subtaskData.id, subtaskData)
+            await Subtask.findByIdAndUpdate(subtaskData.id, subtaskData, { new: false })
         }
         else {
             subtaskData._id = subtaskData.id
@@ -113,6 +113,7 @@ taskRouter.post('/subtasks/:taskId', async (req, res) => {
         await task.save();
         res.json(task);
     } catch (error) {
+        console.log(error.message)
         res.status(500).json({ error: error.message });
     }
 });
