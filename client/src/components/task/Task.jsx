@@ -6,6 +6,7 @@ import * as Types from '../../utils/types.js'
 import { useDispatch } from 'react-redux'
 import { addUpdateTask, deleteTask } from '../../feature/tasksSlice.js'
 import TasksService from '../../services/TasksService.js'
+import LocalStorageService from '../../services/LocalStorageService.js'
 
 /**
  *
@@ -24,7 +25,8 @@ export default function Task ({ task, editMode = false }) {
                 id: task.id,
                 title,
                 subtasks: task.subtasks
-            }
+            },
+            userId: LocalStorageService.getUser().id
         }
         TasksService.AddUpdateTask(updateTaskRequestObj).then(
             () => {
@@ -36,25 +38,25 @@ export default function Task ({ task, editMode = false }) {
         setIsEditingTask(false)
     }
 
-    const handleDeleteSubtask = () => {
-        const deleteSubtaskRequestObj = { taskId: task.id }
-        TasksService.DeleteTask(deleteSubtaskRequestObj).then(
-            () => dispatch(deleteTask(deleteSubtaskRequestObj))
+    const handleDeleteTask = () => {
+        const deleteTaskRequestObj = { taskId: task.id }
+        TasksService.DeleteTask(deleteTaskRequestObj.taskId).then(
+            () => dispatch(deleteTask(deleteTaskRequestObj))
         )
     }
 
     return (
         <div className='task-container'>
-            <label><input type='checkbox' checked={task.subtasks.every((subtaskItem) => subtaskItem.status === 'done')}/></label>
+            <label><input type='checkbox' defaultChecked={task.subtasks.every((subtaskItem) => subtaskItem.status === 'done')} /></label>
             {isEditingTask
-                ? <input type='text' placeholder='Task Title' value={title} onChange={(e) => { setTitle(e.target.value) }}/>
+                ? <input type='text' placeholder='Task Title' value={title} onChange={(e) => { setTitle(e.target.value) }} />
                 : <Link to={`/tasks/${task.id}`}>{task.title}</Link>}
 
             {isEditingTask
                 ? <button onClick={() => { handleSubmitTask(false) }}>Submit</button>
                 : <button onClick={() => { setIsEditingTask(true) }}>Edit</button>
             }
-            {isEditingTask && <button onClick={handleDeleteSubtask}>Delete</button>}
+            {isEditingTask && <button onClick={handleDeleteTask}>Delete</button>}
         </div>
     )
 }

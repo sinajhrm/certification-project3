@@ -9,7 +9,8 @@ import Subtask from '../subtask/Subtask'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useParams } from 'react-router-dom'
 import { addUpdateSubtaskToTask } from '../../feature/tasksSlice'
-import { v4 as uuid } from 'uuid'
+// import { v4 as uuid } from 'uuid'
+import { ObjectId } from 'bson'
 
 export default function TaskDetail () {
     const urlParams = useParams()
@@ -19,7 +20,7 @@ export default function TaskDetail () {
     const tasks = useSelector((state) => state.task.value)
 
     if (tasks.length === 0) {
-        return (<Navigate to={'/'}/>)
+        return (<Navigate to={'/'} />)
     }
     const task = tasks.find((task) => task.id === urlParams.taskId)
 
@@ -27,7 +28,7 @@ export default function TaskDetail () {
         dispatch(addUpdateSubtaskToTask(
             {
                 subtask: {
-                    id: uuid(),
+                    id: (new ObjectId()).toString(),
                     title: '',
                     due_date: '',
                     status: '',
@@ -41,12 +42,12 @@ export default function TaskDetail () {
     return (
         <div className='taskDetail-container'>
             <h1>{task.title}</h1>
-            <hr/>
+            <hr />
             <ul>
                 {task.subtasks.map((subtaskItem) => {
                     return (
                         <li key={subtaskItem.id}>
-                            <Subtask editMode={false} subtask={subtaskItem} taskId={urlParams.taskId}/>
+                            <Subtask editMode={false} subtask={subtaskItem} taskId={urlParams.taskId} />
                         </li>)
                 })}
             </ul>
