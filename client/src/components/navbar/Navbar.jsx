@@ -1,9 +1,11 @@
 import React from 'react'
 
-import { Link, useMatch, useResolvedPath } from 'react-router-dom'
+import { Link, useMatch, useNavigate, useResolvedPath } from 'react-router-dom'
 import './navbar.css'
 
-const Navbar = () => {
+const Navbar = ({ onLogout }) => {
+    const navigate = useNavigate()
+
     return (
         <>
             <nav className='navbar'>
@@ -12,6 +14,7 @@ const Navbar = () => {
                     <ActiveClassLink to="/tasks">Tasks</ActiveClassLink>
                     {/* <ActiveClassLink to="/create">Create</ActiveClassLink> */}
                     <ActiveClassLink to="/contact">Contact</ActiveClassLink>
+                    <a onClick={() => { onLogout(); navigate('/') }} style={{ cursor: 'pointer' }} >Logout</a>
                 </ul>
             </nav>
         </>
