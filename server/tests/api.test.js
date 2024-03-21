@@ -10,19 +10,19 @@ sleepOnTestStartMS = 5000
 
 
 
-beforeEach(async () => {
-  // Clear data and load new entries for tests
+// beforeEach(async () => {
+//   // Clear data and load new entries for tests
 
-  helpers.removeTestData().then(() => {
+//   helpers.removeTestData().then(() => {
 
-    helpers.initTestData().then(() => console.log('Jest: removing and initializing data in test db'))
-  })
+//     helpers.initTestData().then(() => console.log('Jest: removing and initializing data in test db'))
+//   })
 
-})
-afterAll(async () => {
-  await helpers.removeTestData()
-  // await db.closeConnection()
-});
+// })
+// afterAll(async () => {
+//   await helpers.removeTestData()
+//   // await db.closeConnection()
+// });
 
 describe('Users tests', () => {
   beforeEach(async () => {
