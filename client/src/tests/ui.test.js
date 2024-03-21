@@ -11,19 +11,20 @@ import Login from '../components/login/Login'
 
 configure({ testIdAttribute: 'id' })
 
-describe('Login Componenet Tests',
+describe('Login Component Tests',
     () => {
-        const onLogin = jest.fn()
-
-        it('should call login function after login button clicked.', async () => {
+        it('should call login/create function after login button clicked.', async () => {
+            const onLogin = jest.fn()
+            const onCreate = jest.fn()
             const user = userEvent.setup()
             const { debug } = render(
-                <Login onLogin={onLogin} />
+                <Login onLogin={onLogin} onCreate={onCreate} />
             )
             // debug()
             const txtUsername = screen.getByPlaceholderText('username')
             const txtPassword = screen.getByPlaceholderText('password')
             const loginBtn = screen.getByText('login')
+            const createBtn = screen.getByText('create')
 
             await user.type(txtUsername, 'some_username')
             expect(txtUsername).toHaveDisplayValue('some_username')
@@ -32,8 +33,11 @@ describe('Login Componenet Tests',
             expect(txtPassword).toHaveDisplayValue('some_password')
 
             await user.click(loginBtn)
+            await user.click(createBtn)
 
             debug()
             expect(onLogin).toHaveBeenCalledTimes(1)
+            expect(onLogin.mock.calls[0][0]).toStrictEqual({ username: 'some_username', password: 'some_password' })
+            expect(onCreate.mock.calls[0][0]).toStrictEqual({ username: 'some_username', password: 'some_password' })
         })
     })
