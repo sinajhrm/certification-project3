@@ -8,6 +8,9 @@ on:
   push:
     branches:
       - production
+env:
+  # Frontend variables
+  MONGODB_URI_TSTDB: ${{secrets.TESTBD_URL}}
 
 jobs:
   frontEndTestPipeline:
