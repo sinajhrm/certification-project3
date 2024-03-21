@@ -1,8 +1,9 @@
 // This component is derived from phonebook example
 
 import React from 'react'
+import './Login.css'
 
-const LoginForm = ({ onLogin, onCreate, onLogout, user }) => {
+const LoginForm = ({ onLogin, onCreate }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         // Grab relevant values
@@ -21,22 +22,15 @@ const LoginForm = ({ onLogin, onCreate, onLogout, user }) => {
     }
 
     return (
-        <div>
-            {user
-                ? <div className="username-header">
-                    <p><strong>{user.username}</strong> is logged in</p>
-                    <button onClick={onLogout}>logout</button>
-                </div>
-                : <form onSubmit={handleSubmit}>
-                    <div><input placeholder="username" name="username" /></div>
-                    <div><input placeholder="password" name="password" type="password" /></div>
-                    <div>
-                        <button type="submit" value="login">login</button>
-                        <button type="submit" value="create">create</button>
-                    </div>
-                </form>
-            }
-        </div>
+        <form className='login-container' onSubmit={handleSubmit}>
+            <div><input placeholder="username" name="username" required /></div>
+            <div><input placeholder="password" name="password" type="password" required /></div>
+            <div>
+                <button type="submit" value="login">login</button>
+                <button type="submit" value="create">create</button>
+            </div>
+        </form>
+
     )
 }
 

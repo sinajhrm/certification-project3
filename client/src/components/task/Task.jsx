@@ -6,6 +6,7 @@ import * as Types from '../../utils/types.js'
 import { useDispatch } from 'react-redux'
 import { addUpdateTask, deleteTask } from '../../feature/tasksSlice.js'
 import TasksService from '../../services/TasksService.js'
+import LocalStorageService from '../../services/LocalStorageService.js'
 
 /**
  *
@@ -24,7 +25,8 @@ export default function Task ({ task, editMode = false }) {
                 id: task.id,
                 title,
                 subtasks: task.subtasks
-            }
+            },
+            userId: LocalStorageService.getUser().id
         }
         TasksService.AddUpdateTask(updateTaskRequestObj).then(
             () => {

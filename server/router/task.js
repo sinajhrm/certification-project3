@@ -34,19 +34,27 @@ taskRouter.get('/:taskId', async (req, res) => {
 
 // Add or update a task
 taskRouter.post('/', async (req, res) => {
-    const { updatedTask } = req.body;
-    // console.log(updatedTask)
+    const { updatedTask, userId } = req.body;
     try {
-        let task = await Task.findById(updatedTask.id)
-        // console.log(task)
-        if (task) {
-            Task.findByIdAndUpdate(task.id, task)
-            return res.json({ message: 'Task updated successfully!', data: task })
+        let task;
+        const existingTask = await Task.findById(updatedTask.id);
+        if (existingTask) {
+            task = await Task.findByIdAndUpdate(updatedTask.id, updatedTask, { new: false });
+        } else {
+            task = await Task.create(updatedTask);
+            const user = await User.findById(userId);
+
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            user.tasks.push(task._id);
+
+            await user.save();
         }
-        else {
-            task = await Task.create(updatedTask)
-            return res.json({ message: 'Task created successfully!', data: task });
-        }
+
+
+        return res.json(task);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -59,6 +67,22 @@ taskRouter.delete('/:taskId', async (req, res) => {
         let result = await Task.findByIdAndDelete(taskId);
         if (!result)
             return res.json({ message: 'Error happend while deleting task' })
+
+        const user = await User.findOne({ tasks: taskId });
+
+        if (!user) {
+            return res.json({ message: 'User not found' });
+        }
+
+        // Remove the task's ID from the user's tasks array
+        user.tasks = user.tasks.filter(task => task.toString() !== taskId);
+
+        // Save the updated user document
+        await user.save();
+
+        //https://www.mongodb.com/docs/manual/reference/operator/query/in/
+        await Subtask.deleteMany({ _id: { $in: result.subtasks } });
+
         res.json({ message: 'Task deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -66,7 +90,7 @@ taskRouter.delete('/:taskId', async (req, res) => {
 });
 
 // Add or update a subtask for a specific task
-taskRouter.post('/:taskId/subtasks', async (req, res) => {
+taskRouter.post('/subtasks/:taskId', async (req, res) => {
     const taskId = req.params.taskId;
     const subtaskData = req.body;
     console.log(taskId)
@@ -76,9 +100,9 @@ taskRouter.post('/:taskId/subtasks', async (req, res) => {
         if (!task) {
             return res.status(404).json({ message: 'Task not found' });
         }
-        let subtaskInsideTask = task.subtasks.find(subtaskIds => subtaskIds === subtaskData.id)
+        let subtaskInsideTask = task.subtasks.find(subtaskIds => subtaskIds.toString() === subtaskData.id)
         if (subtaskInsideTask) {
-            await Subtask.findByIdAndUpdate(subtaskData.id, subtaskData)
+            await Subtask.findByIdAndUpdate(subtaskData.id, subtaskData, { new: false })
         }
         else {
             subtaskData._id = subtaskData.id
@@ -89,12 +113,13 @@ taskRouter.post('/:taskId/subtasks', async (req, res) => {
         await task.save();
         res.json(task);
     } catch (error) {
+        console.log(error.message)
         res.status(500).json({ error: error.message });
     }
 });
 
 // Delete a subtask for a specific task
-taskRouter.delete('/:taskId/subtasks/:subtaskId', async (req, res) => {
+taskRouter.delete('/subtasks/:taskId/:subtaskId', async (req, res) => {
     const taskId = req.params.taskId;
     const subtaskId = req.params.subtaskId;
     try {

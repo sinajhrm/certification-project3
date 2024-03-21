@@ -39,7 +39,7 @@ const App = () => {
 
     useEffect(() => {
         const loggedInUser = LocalStorageService.getUser()
-        console.log(['logged-in user:', loggedInUser])
+        // console.log(['logged-in user:', loggedInUser])
         if (loggedInUser) {
             setUser(loggedInUser)
         }
@@ -56,7 +56,7 @@ const App = () => {
         UsersService
             .login(user)
             .then((response) => {
-                console.log(['user service response: ', response])
+                // console.log(['user service response: ', response])
                 setUser(response)
                 LocalStorageService.storeUser(response)
                 return response
@@ -64,13 +64,31 @@ const App = () => {
             .catch((error) => console.log(error))
     }
 
+    const handleCreate = (user) => {
+        UsersService
+            .create(user)
+            .then((response) => {
+                // console.log(['user service response: ', response])
+                setUser(response)
+                LocalStorageService.storeUser(response)
+                return response
+            })
+            .catch((error) => console.log(error))
+    }
+    /**
+     * Handles logout, sets user to null
+     */
+    const handleLogout = () => {
+        LocalStorageService.removeUser()
+        setUser(null)
+    }
     if (isDataBeingLoaded && user) return (<><h1>Loading ...</h1></>)
     if (!LocalStorageService.getUser()) {
-        return (<LoginForm onLogin={handleLogin} />)
+        return (<LoginForm onLogin={handleLogin} onCreate={handleCreate} />)
     } else {
         return (
             <Router>
-                <Navbar />
+                <Navbar onLogout={handleLogout} />
                 <div className='app-content'>
                     <Routes>
                         <Route path="/home" element={<Home />} />
