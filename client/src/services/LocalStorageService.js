@@ -7,6 +7,17 @@ const LocalStorageService = {
         localStorage.setItem('user', JSON.stringify(user))
     },
 
+    storeTasks: (tasks) => {
+        localStorage.setItem('tasks', JSON.stringify(tasks))
+    },
+    getTasks: (tasks) => {
+        return JSON.parse(localStorage.getItem('tasks'))
+    },
+
+    removeTasks: (tasks) => {
+        localStorage.removeItem('tasks')
+    },
+
     getUser: () => {
         return JSON.parse(localStorage.getItem('user'))
     },
