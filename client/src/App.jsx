@@ -32,7 +32,15 @@ const App = () => {
 
     const fetchDataAndUpdateRedux = async () => {
         const fetchedTasks = await TasksService.GetAllTasks(LocalStorageService.getUser().id, true)
+        LocalStorageService.storeTasks(fetchedTasks)
         fetchedTasks.forEach((fetchedTask) => {
+            dispatch(addTask(fetchedTask))
+        })
+    }
+
+    const updateReduxFromLocalStorage = () => {
+        const lsTasks = LocalStorageService.getTasks()
+        lsTasks.forEach((fetchedTask) => {
             dispatch(addTask(fetchedTask))
         })
     }
@@ -88,7 +96,7 @@ const App = () => {
     } else {
         return (
             <Router>
-                <Navbar onLogout={handleLogout} />
+                <Navbar onLogout={handleLogout} syncReduxLocalStorage={updateReduxFromLocalStorage} />
                 <div className='app-content'>
                     <Routes>
                         <Route path="/home" element={<Home />} />

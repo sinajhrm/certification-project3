@@ -3,7 +3,7 @@ import React from 'react'
 import { Link, useMatch, useNavigate, useResolvedPath } from 'react-router-dom'
 import './navbar.css'
 
-const Navbar = ({ onLogout }) => {
+const Navbar = ({ onLogout, syncReduxLocalStorage }) => {
     const navigate = useNavigate()
 
     return (
@@ -15,6 +15,7 @@ const Navbar = ({ onLogout }) => {
                     {/* <ActiveClassLink to="/create">Create</ActiveClassLink> */}
                     <ActiveClassLink to="/contact">Contact</ActiveClassLink>
                     <a onClick={() => { onLogout(); navigate('/') }} style={{ cursor: 'pointer' }} >Logout</a>
+                    <a onClick={syncReduxLocalStorage} style={{ cursor: 'pointer' }} >Sync Redux/Local Storage</a>
                 </ul>
             </nav>
         </>
