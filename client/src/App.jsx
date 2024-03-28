@@ -87,7 +87,8 @@ const App = () => {
      * Handles logout, sets user to null
      */
     const handleLogout = () => {
-        LocalStorageService.removeUser()
+        // LocalStorageService.removeUser()
+        localStorage.clear()
         setUser(null)
     }
     if (isDataBeingLoaded && user) return (<><h1>Loading ...</h1></>)
